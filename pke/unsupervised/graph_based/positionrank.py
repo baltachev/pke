@@ -73,7 +73,7 @@ class PositionRank(SingleRank):
     def candidate_selection(self,
                             grammar=None,
                             maximum_word_number=3,
-                            stoplist = ('fig', 'bottom', 'center'),
+                            stoplist=('fig', 'bottom', 'center'),
                             **kwargs):
         """Candidate selection heuristic using a syntactic PoS pattern for
         noun phrase extraction.
@@ -100,10 +100,7 @@ class PositionRank(SingleRank):
 
             words = [u.lower() for u in v.surface_forms[0]]
 
-            if len(v.lexical_form) > maximum_word_number:
-                del self.candidates[k]
-
-            if set(words).intersection(stoplist):
+            if len(v.lexical_form) > maximum_word_number or set(words).intersection(stoplist):
                 del self.candidates[k]
 
     def build_word_graph(self, window=10, pos=None):
