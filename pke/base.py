@@ -28,6 +28,7 @@ ISO_to_language = {'en': 'english', 'pt': 'portuguese', 'fr': 'french',
 escaped_punctuation = {'-lrb-': '(', '-rrb-': ')', '-lsb-': '[', '-rsb-': ']',
                        '-lcb-': '{', '-rcb-': '}'}
 
+RawTextReader = RawTextReader(language="en")
 
 class LoadFile(object):
     """The LoadFile class that provides base functions."""
@@ -61,8 +62,6 @@ class LoadFile(object):
 
         self.stoplist = None
         """List of stopwords."""
-
-        self.RawTextReader = RawTextReader(language="en")
 
     def load_document(self, input, **kwargs):
         """Loads the content of a document/string/stream in a given language.
@@ -102,7 +101,7 @@ class LoadFile(object):
 
                 # other extensions are considered as raw text
                 else:
-                    parser = self.RawTextReader
+                    parser = RawTextReader
                     encoding = kwargs.get('encoding', 'utf-8')
                     with codecs.open(input, 'r', encoding=encoding) as file:
                         text = file.read()
@@ -110,7 +109,7 @@ class LoadFile(object):
 
             # if input is a string
             else:
-                parser = self.RawTextReader
+                parser = RawTextReader
                 doc = parser.read(text=input, **kwargs)
 
         elif getattr(input, 'read', None):
@@ -121,7 +120,7 @@ class LoadFile(object):
                 doc = parser.read(path=input, **kwargs)
                 doc.is_corenlp_file = True
             else:
-                parser = self.RawTextReader
+                parser = RawTextReader
                 doc = parser.read(text=input.read(), **kwargs)
 
         else:
