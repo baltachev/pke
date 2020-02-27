@@ -54,11 +54,12 @@ class RawTextReader(Reader):
         Args:
             language (str): language of text to process.
         """
-
         self.language = language
 
         if language is None:
             self.language = 'en'
+
+        self.nlp = spacy.load(self.language, max_length=10 ** 6)
 
     def read(self, text, **kwargs):
         """Read the input file and use spacy to pre-process.
@@ -69,10 +70,9 @@ class RawTextReader(Reader):
                 spacy, default to 1,000,000 characters (1mb).
         """
 
-        max_length = kwargs.get('max_length', 10**6)
-        nlp = spacy.load(self.language,
-                         max_length=max_length)
-        spacy_doc = nlp(text)
+        # max_length = kwargs.get('max_length', 10**6)
+
+        spacy_doc = self.nlp(text)
 
         sentences = []
         for sentence_id, sentence in enumerate(spacy_doc.sents):
