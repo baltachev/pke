@@ -59,7 +59,7 @@ class RawTextReader(Reader):
         if language is None:
             self.language = 'en'
 
-        self.nlp = spacy.load(self.language, max_length=10 ** 6, disable=('ner',))
+        self.nlp = spacy.load(self.language, max_length=10 ** 6, disable=('ner', 'parser'))
         print(self.nlp.pipeline)
 
     def read(self, text, **kwargs):
