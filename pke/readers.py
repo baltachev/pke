@@ -60,6 +60,7 @@ class RawTextReader(Reader):
             self.language = 'en'
 
         self.nlp = spacy.load(self.language, max_length=10 ** 6)
+        print(self.nlp.pipeline)
 
     def read(self, text, **kwargs):
         """Read the input file and use spacy to pre-process.
