@@ -172,18 +172,6 @@ class PositionRank(SingleRank):
         for word in self.positions:
             self.positions[word] /= norm
         #
-        # graph_js = nx.readwrite.json_graph.node_link_data(self.graph)
-        # adj_g_js = nx.readwrite.json_graph.adjacency_data(self.graph)
-        # with open('gpaph.json', 'w') as f:
-        #     graph_js_ser = json.dumps(graph_js, ensure_ascii=False)
-        #     f.write(graph_js_ser)
-
-
-        #
-        # print(f'positions {self.positions}')
-        # print(f'graph nodes {self.graph.nodes}')
-        # print(f"graph edges {self.graph.edges}")
-        # print(f'graph {self.graph}')
 
         # compute the word scores using biased random walk
         w = nx.pagerank_scipy(G=self.graph,

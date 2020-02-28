@@ -61,7 +61,6 @@ class RawTextReader(Reader):
 
         self.nlp = spacy.load(self.language, max_length=10 ** 6, disable=('ner', 'parser'))
         self.nlp.add_pipe(self.nlp.create_pipe('sentencizer'))
-        print(self.nlp.pipeline)
 
     def read(self, text, **kwargs):
         """Read the input file and use spacy to pre-process.
