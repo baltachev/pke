@@ -7,6 +7,7 @@ import xml.etree.ElementTree as etree
 import spacy
 
 from pke.data_structures import Document
+from pke.utils import Singleton
 
 
 class Reader(object):
@@ -45,7 +46,7 @@ class MinimalCoreNLPReader(Reader):
         return doc
 
 
-class RawTextReader(Reader):
+class RawTextReader(Reader, metaclass=Singleton):
     """Reader for raw text."""
 
     def __init__(self, language=None):
