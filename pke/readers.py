@@ -60,7 +60,7 @@ class RawTextReader(Reader, metaclass=Singleton):
         if language is None:
             self.language = 'en'
 
-        self.nlp = spacy.load(self.language, max_length=10 ** 6, disable=('ner', 'parser'))
+        self.nlp = spacy.load(language, max_length=10 ** 6, disable=('ner', 'parser'))
         self.nlp.add_pipe(self.nlp.create_pipe('sentencizer'))
 
     def read(self, text, **kwargs):
