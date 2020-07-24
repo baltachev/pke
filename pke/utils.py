@@ -33,9 +33,11 @@ class Singleton(type):
     _instances = {}
 
     def __call__(cls, *args, **kwargs):
-        if cls not in cls._instances:
-            cls._instances[cls] = super(Singleton, cls).__call__(*args, **kwargs)
-        return cls._instances[cls]
+        f_args, f_kwargs = tuple(args), frozenset(kwargs.items())
+
+        if (cls, f_args, f_kwargs) not in cls._instances:
+            cls._instances[(cls, f_args, f_kwargs)] = super(Singleton, cls).__call__(*args, **kwargs)
+        return cls._instances[(cls, f_args, f_kwargs)]
 
 
 def load_document_frequency_file(input_file,
