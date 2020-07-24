@@ -3,14 +3,14 @@
 
 """Readers for the pke module."""
 
+
 import xml.etree.ElementTree as etree
 import spacy
 
-from pke.data_structures import Document
-from pke.utils import Singleton
+from pke.data_structures import Document, Singleton
 
 
-class Reader(object):
+class Reader:
     def read(self, path):
         raise NotImplementedError
 

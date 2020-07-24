@@ -29,17 +29,6 @@ from nltk.stem.snowball import SnowballStemmer
 from nltk.corpus import stopwords
 
 
-class Singleton(type):
-    _instances = {}
-
-    def __call__(cls, *args, **kwargs):
-        f_args, f_kwargs = tuple(args), frozenset(kwargs.items())
-
-        if (cls, f_args, f_kwargs) not in cls._instances:
-            cls._instances[(cls, f_args, f_kwargs)] = super(Singleton, cls).__call__(*args, **kwargs)
-        return cls._instances[(cls, f_args, f_kwargs)]
-
-
 def load_document_frequency_file(input_file,
                                  delimiter='\t'):
     """Load a tsv (tab-separated-values) file containing document frequencies.

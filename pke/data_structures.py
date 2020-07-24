@@ -3,6 +3,17 @@
 """Data structures for the pke module."""
 
 
+class Singleton(type):
+    _instances = {}
+
+    def __call__(cls, *args, **kwargs):
+        f_args, f_kwargs = tuple(args), frozenset(kwargs.items())
+
+        if (cls, f_args, f_kwargs) not in cls._instances:
+            cls._instances[(cls, f_args, f_kwargs)] = super(Singleton, cls).__call__(*args, **kwargs)
+        return cls._instances[(cls, f_args, f_kwargs)]
+
+
 class Sentence(object):
     """The sentence data structure."""
 
