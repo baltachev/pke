@@ -28,8 +28,6 @@ ISO_to_language = {'en': 'english', 'pt': 'portuguese', 'fr': 'french',
 escaped_punctuation = {'-lrb-': '(', '-rrb-': ')', '-lsb-': '[', '-rsb-': ']',
                        '-lcb-': '{', '-rcb-': '}'}
 
-raw_text_reader = RawTextReader(language="en")
-
 
 class LoadFile(object):
     """The LoadFile class that provides base functions."""
@@ -102,7 +100,7 @@ class LoadFile(object):
 
                 # other extensions are considered as raw text
                 else:
-                    parser = raw_text_reader
+                    parser = RawTextReader(language=language)
                     encoding = kwargs.get('encoding', 'utf-8')
                     with codecs.open(input, 'r', encoding=encoding) as file:
                         text = file.read()
@@ -110,7 +108,7 @@ class LoadFile(object):
 
             # if input is a string
             else:
-                parser = raw_text_reader
+                parser = RawTextReader(language=language)
                 doc = parser.read(text=input, **kwargs)
 
         elif getattr(input, 'read', None):
@@ -121,7 +119,7 @@ class LoadFile(object):
                 doc = parser.read(path=input, **kwargs)
                 doc.is_corenlp_file = True
             else:
-                parser = raw_text_reader
+                parser = RawTextReader(language=language)
                 doc = parser.read(text=input.read(), **kwargs)
 
         else:

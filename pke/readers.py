@@ -3,13 +3,14 @@
 
 """Readers for the pke module."""
 
+
 import xml.etree.ElementTree as etree
 import spacy
 
-from pke.data_structures import Document
+from pke.data_structures import Document, Singleton
 
 
-class Reader(object):
+class Reader:
     def read(self, path):
         raise NotImplementedError
 
@@ -45,7 +46,7 @@ class MinimalCoreNLPReader(Reader):
         return doc
 
 
-class RawTextReader(Reader):
+class RawTextReader(Reader, metaclass=Singleton):
     """Reader for raw text."""
 
     def __init__(self, language=None):
@@ -59,7 +60,7 @@ class RawTextReader(Reader):
         if language is None:
             self.language = 'en'
 
-        self.nlp = spacy.load(self.language, max_length=10 ** 6, disable=('ner', 'parser'))
+        self.nlp = spacy.load(language, max_length=10 ** 6, disable=('ner', 'parser'))
         self.nlp.add_pipe(self.nlp.create_pipe('sentencizer'))
 
     def read(self, text, **kwargs):

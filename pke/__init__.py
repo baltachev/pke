@@ -1,6 +1,7 @@
 from __future__ import absolute_import
 
-from pke.data_structures import Candidate, Document, Sentence
+from pke.data_structures import Candidate, Document, Sentence, Singleton
+
 from pke.readers import MinimalCoreNLPReader, RawTextReader
 from pke.base import LoadFile
 from pke.utils import (load_document_frequency_file, compute_document_frequency,
